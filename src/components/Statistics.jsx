@@ -1,31 +1,10 @@
-import { useState, useEffect } from 'react';
-import { useMcpTools } from '../mcp-integration';
-
 const Statistics = ({ cards }) => {
-  const { mcpStatus, isConnected, analyzeFlashcards, getLearningTips } = useMcpTools();
-  const [aiAnalysis, setAiAnalysis] = useState(null);
-  const [learningTips, setLearningTips] = useState([]);
-  const [showMcpFeatures, setShowMcpFeatures] = useState(false);
-
-  useEffect(() => {
-    if (isConnected && cards.length > 0) {
-      // 获取AI分析
-      analyzeFlashcards(cards).then(analysis => {
-        setAiAnalysis(analysis);
-      });
-
-      // 获取学习建议
-      getLearningTips(cards).then(tips => {
-        setLearningTips(tips);
-      });
-    }
-  }, [isConnected, cards, analyzeFlashcards, getLearningTips]);
   // Calculate statistics
   const totalCards = cards.length;
   const reviewedCards = cards.filter(card => card.reviewed).length;
   const correctCards = cards.filter(card => card.reviewed && card.correct).length;
   const incorrectCards = reviewedCards - correctCards;
-
+  
   const reviewedPercentage = totalCards > 0 ? (reviewedCards / totalCards) * 100 : 0;
   const correctPercentage = reviewedCards > 0 ? (correctCards / reviewedCards) * 100 : 0;
   const incorrectPercentage = reviewedCards > 0 ? (incorrectCards / reviewedCards) * 100 : 0;
@@ -136,7 +115,7 @@ const Statistics = ({ cards }) => {
       height: '200px',
       borderRadius: '50%',
       background: `conic-gradient(
-        #28a745 0% ${correctPercentage}%,
+        #28a745 0% ${correctPercentage}%, 
         #dc3545 ${correctPercentage}% 100%
       )`,
       margin: '30px auto',
@@ -182,127 +161,34 @@ const Statistics = ({ cards }) => {
       fontSize: '18px',
       color: '#6c757d',
     },
-    // MCP相关样式
-    mcpContainer: {
-      marginTop: '40px',
-      border: '1px solid #dee2e6',
-      borderRadius: '8px',
-      padding: '20px',
-      backgroundColor: '#f8f9fa',
-    },
-    mcpHeader: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      marginBottom: '20px',
-      flexWrap: 'wrap',
-      gap: '10px',
-    },
-    mcpStatus: {
-      padding: '5px 10px',
-      borderRadius: '4px',
-      fontSize: '14px',
-      fontWeight: 'bold',
-    },
-    mcpToggleButton: {
-      padding: '8px 16px',
-      backgroundColor: '#007bff',
-      color: 'white',
-      border: 'none',
-      borderRadius: '4px',
-      fontSize: '14px',
-      fontWeight: 'bold',
-      cursor: 'pointer',
-    },
-    mcpFeatures: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '20px',
-    },
-    mcpCard: {
-      backgroundColor: 'white',
-      borderRadius: '8px',
-      padding: '15px',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-    },
-    mcpCardTitle: {
-      fontSize: '18px',
-      fontWeight: 'bold',
-      marginBottom: '15px',
-      color: '#343a40',
-      borderBottom: '1px solid #dee2e6',
-      paddingBottom: '10px',
-    },
-    mcpCardContent: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '15px',
-    },
-    mcpItem: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '5px',
-    },
-    mcpLabel: {
-      fontSize: '14px',
-      fontWeight: 'bold',
-      color: '#6c757d',
-    },
-    mcpValue: {
-      fontSize: '16px',
-      color: '#212529',
-    },
-    mcpWordList: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      gap: '8px',
-      marginTop: '5px',
-    },
-    mcpWord: {
-      padding: '5px 10px',
-      backgroundColor: '#e9ecef',
-      borderRadius: '4px',
-      fontSize: '14px',
-      color: '#495057',
-    },
-    tipsList: {
-      margin: 0,
-      padding: '0 0 0 20px',
-    },
-    tipItem: {
-      margin: '8px 0',
-      color: '#495057',
-      fontSize: '14px',
-      lineHeight: '1.5',
-    },
   };
 
   return (
     <div style={styles.container}>
       <h2 style={styles.title}>学习统计</h2>
-
+      
       <div style={styles.statsGrid}>
         <div style={styles.statCard}>
           <div style={{...styles.statValue, color: '#007bff'}}>{totalCards}</div>
           <div style={styles.statLabel}>总闪卡数</div>
         </div>
-
+        
         <div style={styles.statCard}>
           <div style={{...styles.statValue, color: '#6f42c1'}}>{reviewedCards}</div>
           <div style={styles.statLabel}>已复习</div>
         </div>
-
+        
         <div style={styles.statCard}>
           <div style={{...styles.statValue, color: '#28a745'}}>{correctCards}</div>
           <div style={styles.statLabel}>记住的</div>
         </div>
-
+        
         <div style={styles.statCard}>
           <div style={{...styles.statValue, color: '#dc3545'}}>{incorrectCards}</div>
           <div style={styles.statLabel}>未记住的</div>
         </div>
       </div>
-
+      
       {totalCards > 0 ? (
         <>
           <div style={styles.chartContainer}>
@@ -315,11 +201,11 @@ const Statistics = ({ cards }) => {
                 <div style={styles.yLabel}>25%</div>
                 <div style={styles.yLabel}>0%</div>
               </div>
-
+              
               <div style={styles.bar}>
-                <div
+                <div 
                   style={{
-                    ...styles.barFill,
+                    ...styles.barFill, 
                     height: `${reviewedPercentage}%`,
                     backgroundColor: '#6f42c1',
                   }}
@@ -332,7 +218,7 @@ const Statistics = ({ cards }) => {
               <div style={styles.xLabel}>已复习比例</div>
             </div>
           </div>
-
+          
           {reviewedCards > 0 && (
             <div style={styles.chartContainer}>
               <h3 style={styles.chartTitle}>记忆效果</h3>
@@ -357,74 +243,6 @@ const Statistics = ({ cards }) => {
           没有可用的统计数据。请先创建并复习一些闪卡。
         </div>
       )}
-
-      {/* MCP功能区域 */}
-      <div style={styles.mcpContainer}>
-        <div style={styles.mcpHeader}>
-          <h3 style={styles.chartTitle}>AI学习助手 (MCP)</h3>
-          <div style={{
-            ...styles.mcpStatus,
-            backgroundColor: isConnected ? '#d4edda' : '#f8d7da',
-            color: isConnected ? '#155724' : '#721c24',
-          }}>
-            {mcpStatus}
-          </div>
-          <button
-            style={{
-              ...styles.mcpToggleButton,
-              opacity: isConnected ? 1 : 0.5,
-              cursor: isConnected ? 'pointer' : 'not-allowed'
-            }}
-            onClick={() => isConnected && setShowMcpFeatures(!showMcpFeatures)}
-            disabled={!isConnected}
-          >
-            {showMcpFeatures ? '隐藏AI功能' : '显示AI功能'}
-          </button>
-        </div>
-
-        {showMcpFeatures && isConnected && (
-          <div style={styles.mcpFeatures}>
-            {aiAnalysis && (
-              <div style={styles.mcpCard}>
-                <h4 style={styles.mcpCardTitle}>AI学习分析</h4>
-                <div style={styles.mcpCardContent}>
-                  <div style={styles.mcpItem}>
-                    <span style={styles.mcpLabel}>学习进度:</span>
-                    <span style={styles.mcpValue}>{aiAnalysis.learningProgress}%</span>
-                  </div>
-
-                  {aiAnalysis.difficultWords.length > 0 && (
-                    <div style={styles.mcpItem}>
-                      <span style={styles.mcpLabel}>需要加强的单词:</span>
-                      <div style={styles.mcpWordList}>
-                        {aiAnalysis.difficultWords.map((word, index) => (
-                          <span key={index} style={styles.mcpWord}>{word}</span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  <div style={styles.mcpItem}>
-                    <span style={styles.mcpLabel}>学习建议:</span>
-                    <span style={styles.mcpValue}>{aiAnalysis.recommendedReviewStrategy}</span>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {learningTips.length > 0 && (
-              <div style={styles.mcpCard}>
-                <h4 style={styles.mcpCardTitle}>学习技巧</h4>
-                <ul style={styles.tipsList}>
-                  {learningTips.map((tip, index) => (
-                    <li key={index} style={styles.tipItem}>{tip}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
     </div>
   );
 };

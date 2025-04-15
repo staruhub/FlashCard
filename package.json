@@ -7,10 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "npm run build && npx wrangler pages deploy dist",
+    "deploy:mcp": "npx wrangler pages deploy dist --with-mcp"
   },
   "dependencies": {
-    "mcp-remote": "^0.0.20",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -23,6 +24,7 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
+    "mcp-remote": "^0.0.20",
     "vite": "^6.2.0",
     "wrangler": "^4.10.0"
   }

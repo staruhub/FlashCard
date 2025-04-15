@@ -42,7 +42,6 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
     { id: 'search', label: '搜索闪卡', icon: '🔍' },
     { id: 'review', label: '复习闪卡', icon: '📚' },
     { id: 'stats', label: '学习统计', icon: '📊' },
-    { id: 'mcp', label: 'MCP工具', icon: '🤖' },
   ];
 
   return (
@@ -50,7 +49,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
       <div style={sidebarStyles.title}>英语学习闪卡</div>
       <ul style={sidebarStyles.nav}>
         {navItems.map(item => (
-          <li
+          <li 
             key={item.id}
             style={{
               ...sidebarStyles.navItem,

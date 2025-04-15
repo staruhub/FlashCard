@@ -4,7 +4,6 @@ import CreateCard from './components/CreateCard';
 import SearchCards from './components/SearchCards';
 import ReviewCards from './components/ReviewCards';
 import Statistics from './components/Statistics';
-import McpToolsTester from './components/McpToolsTester';
 import initialCards from './data';
 
 function App() {
@@ -46,8 +45,6 @@ function App() {
         return <ReviewCards cards={cards} onCardUpdate={handleCardUpdate} />;
       case 'stats':
         return <Statistics cards={cards} />;
-      case 'mcp':
-        return <McpToolsTester cards={cards} />;
       default:
         return <CreateCard onAddCard={handleAddCard} />;
     }
