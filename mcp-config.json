@@ -4,7 +4,7 @@
       "command": "npx",
       "args": [
         "mcp-remote",
-        "https://flashcard-mcp-server.pongpong20180721.workers.dev"
+        "https://flashcard-mcp-server.yoursubdomain.workers.dev"
       ]
     }
   }
