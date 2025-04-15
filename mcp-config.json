@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "flashcard": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp.cloudflare.com/workers/observability/sse"
+      ]
+    }
+  }
+}
